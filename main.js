@@ -12,6 +12,10 @@ var paddle1Y;
 var  playerscore =0;
 var audio1;
 var pcscore =0;
+
+rightWristX = 0;
+rightWristY = 0;
+rightWristScore = 0;
 //ball x and y and speedx speed y and radius
 var ball = {
     x:350/2,
@@ -38,9 +42,11 @@ function gotPoses(results)
 	console.log(results);
 	if(results.length > 0)
 	{
-		noseX = results[0].pose.nose.x;
-		noseY = results[0].pose.nose.y;
-		console.log("nose X : " + noseX + "nose Y: " + noseY);
+		rightWristX = results[0].pose.rightWrist.x;
+		rightWristY = results[0].pose.rightWrist.y;
+		console.log("right wrist X : " + rightWristX + "right wrist Y: " + rightWristY);
+    rightWristScore = results[0].pose.score;
+    console.log("score = " + rightWristScore);
 	}	
 }
 
@@ -88,6 +94,13 @@ function draw(){
    
    //function move call which in very important
     move();
+
+    if(rightWristScore > 0.2)
+    {
+      fill(random(255));
+      stroke(random(255));
+      circle(rightWristX, rightWristY, 15);
+    }
 }
 
 
