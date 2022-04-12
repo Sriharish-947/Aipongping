@@ -23,8 +23,31 @@ var ball = {
 
 function setup(){
   var canvas =  createCanvas(700,600);
+  canvas.parent("canvas");
+  
+  video = createCapture(VIDEO);
+	video.size(800,400);
+	video.parent("game_console");
+
+  poseNet = ml5.poseNet(video, modelLoaded);
+	poseNet.on('pose', gotPoses);
 }
 
+function gotPoses(results)
+{
+	console.log(results);
+	if(results.length > 0)
+	{
+		noseX = results[0].pose.nose.x;
+		noseY = results[0].pose.nose.y;
+		console.log("nose X : " + noseX + "nose Y: " + noseY);
+	}	
+}
+
+function modelLoaded()
+{
+  console.log("The paddels are ready to ping the pong");
+}
 
 function draw(){
 
@@ -162,3 +185,4 @@ function paddleInCanvas(){
     mouseY =0;
   }  
 }
+
