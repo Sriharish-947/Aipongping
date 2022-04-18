@@ -16,6 +16,8 @@ var pcscore =0;
 rightWristX = 0;
 rightWristY = 0;
 rightWristScore = 0;
+
+gameStatus = " ";
 //ball x and y and speedx speed y and radius
 var ball = {
     x:350/2,
@@ -95,12 +97,13 @@ function draw(){
    //function move call which in very important
     move();
 
-    if(rightWristScore > 0.2)
+    if(rightWristScore > 0.2 && gameStatus == "start")
     {
       fill(random(255));
       stroke(random(255));
       circle(rightWristX, rightWristY, 15);
     }
+
 }
 
 
@@ -197,5 +200,11 @@ function paddleInCanvas(){
   if(mouseY < 0){
     mouseY =0;
   }  
+}
+
+function startGame()
+{
+  gameStatus = "start";
+  document.getElementById("status").innerHTML = "Game has been loaded";
 }
 
